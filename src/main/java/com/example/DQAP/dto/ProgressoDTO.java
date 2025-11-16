@@ -1,4 +1,4 @@
-package dto;
+package com.example.DQAP.dto;
 
 public class ProgressoDTO {
 	

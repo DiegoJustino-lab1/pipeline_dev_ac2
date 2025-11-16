@@ -1,9 +1,10 @@
-package entity;
+package com.example.DQAP.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -14,12 +15,27 @@ public class Conclusao {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "aluno_id")
     private Aluno aluno;
 
     @ManyToOne
+    @JoinColumn(name = "curso_id")
     private Curso curso;
 
     private boolean concluido;
+    
+    public Conclusao() {}
+
+    public Conclusao(Long id, Aluno aluno, Curso curso, boolean concluido) {
+        this.id = id;
+        this.aluno = aluno;
+        this.curso = curso;
+        this.concluido = concluido;
+    }
+
+    public void marcarComoConcluido() {
+        this.concluido = true;
+    }
 
     public Long getId() {
         return id;

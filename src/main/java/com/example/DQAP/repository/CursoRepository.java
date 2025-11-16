@@ -1,8 +1,8 @@
-package repository;
+package com.example.DQAP.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import entity.Curso;
+import com.example.DQAP.entity.Curso;
 
 public interface CursoRepository extends JpaRepository<Curso, Long>{
 
