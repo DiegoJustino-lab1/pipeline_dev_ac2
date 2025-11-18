@@ -1,0 +1,25 @@
+pipeline {
+    agent any 
+    
+    stages {
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Iniciando o deploy da imagem no ambiente de Staging...'
+                
+                // 1. Puxa a imagem mais recente do Docker Hub
+                bat 'docker pull diegojustino1/pipeline_dev_ac2:latest'
+                
+                // 2. Tenta parar e remover o contêiner antigo.
+                // O 'returnStatus: true' permite que o passo retorne um código de erro 
+                // (como quando o contêiner não existe) sem falhar o build.
+                bat(returnStatus: true, script: 'docker stop pipeline-staging')
+                bat(returnStatus: true, script: 'docker rm pipeline-staging')
+                
+                // 3. Roda o novo contêiner
+                bat 'docker run -d --name pipeline-staging -p 8081:8080 diegojustino1/pipeline_dev_ac2:latest'
+                
+                echo 'Deploy de Staging concluído na porta 8081.'
+            }
+        }
+    }
+}
